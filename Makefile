@@ -2,6 +2,8 @@ SRC 		= 	./main.c \
 				./parsing.c \
 				./ft_atoi.c \
 				./ft_isdigit.c \
+				./initialize.c \
+				./execution.c \
 
 OBJ		= ${SRC:.c=.o}
 
@@ -11,7 +13,9 @@ CC 			= gcc
 
 RM 			= rm -f
 
-CFLAGS 		= -Wall -Werror -Wextra -g
+CFLAGS 		= -Wall -Werror -Wextra -g3
+
+LDFLAGS 	= -lpthread
 
 ifdef DEBUG
 	CFLAGS += -fsanitize=address -g3
@@ -25,7 +29,7 @@ all:		$(NAME)
 			@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 
 $(NAME):	$(OBJ)
-			@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+			@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS)
 
 debug:
 	${MAKE} DEBUG=1

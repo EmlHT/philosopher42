@@ -3,35 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/10 17:35:39 by ehouot            #+#    #+#             */
-/*   Updated: 2023/07/11 19:34:00 by ehouot           ###   ########.fr       */
+/*   Created: 2023/07/24 16:48:10 by ehouot            #+#    #+#             */
+/*   Updated: 2023/07/25 13:36:51 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	initialize(t_philo *philo, t_var vars)
+void	initialize(t_var *vars, t_philo **philo)
 {
-	int				i;
-	pthread_mutex_t	*mutex;
-	pthread_t		*thread;
+	int	i;
 
-	mutex = (pthread_mutex_t *) malloc \
-				(sizeof(pthread_mutex_t) * vars.nb_philo + 1);
-	if (!mutex)
+	vars->forks = (pthread_mutex_t *) malloc \
+				(sizeof(pthread_mutex_t) * vars->nb_philo + 1);
+	if (!vars->forks)
 		return ;
-	thread = (pthread_t *) malloc \
-				(sizeof(pthread_t) * vars.nb_philo + 1);
-	if (!philo)
+	vars->philosophers = (pthread_t *) malloc \
+				(sizeof(pthread_t) * vars->nb_philo + 1);
+	if (!vars->philosophers)
 		return ;
 	i = -1;
-	while (++i < vars.nb_philo)
+	while (++i < vars->nb_philo)
 	{
-		thread[i] = philo->num++;
-		if (pthread_create(philo->num, NULL, thread_exec(&vars), &vars) != 0)
+		philo[i] = (t_philo *) malloc (sizeof(t_philo) * vars->nb_philo + 1);
+		if (!philo[i])
 			return ;
-		pthread_mutex_init(&mutex, NULL);
+		philo[i]->vars = vars;
+		philo[i]->philo_id = i;
+		if (pthread_create(&vars->philosophers[i], NULL, thread_exec, philo[i]) != 0)
+			return ;
+		pthread_mutex_init(&vars->forks[i], NULL);
 	}
 }
+ 
