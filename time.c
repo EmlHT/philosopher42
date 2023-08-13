@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/10 10:05:25 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/08 00:35:26 by ehouot           ###   ########.fr       */
+/*   Created: 2023/08/03 18:42:06 by ehouot            #+#    #+#             */
+/*   Updated: 2023/08/07 22:51:28 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+long long realtime()
 {
-	t_var	*vars;
+	long long		begin_time;
+	struct timeval	tv;
+	
+	gettimeofday(&tv, NULL);
+	begin_time = (long long)tv.tv_sec * 1000LL + (long long)tv.tv_usec / 1000LL;
+	return (begin_time);
+}
 
-	vars = NULL;
-	vars = parsing(argc, argv);
-	if (!vars)
-		return (EXIT_FAILURE);
-	if (init_philo(vars) != true)
-		return (EXIT_FAILURE);
-	// philo = (t_philo **) malloc (sizeof(t_philo *) * vars.nb_philo);
-	// initialize(vars, philo);
-	return (EXIT_SUCCESS);
+long long get_time()
+{
+	struct timeval	time;
+	long long 		actual_time;
+
+	gettimeofday(&time, NULL);
+	actual_time = (long long)time.tv_sec * 1000LL + (long long)time.tv_usec / 1000LL;
+	return (actual_time);
 }

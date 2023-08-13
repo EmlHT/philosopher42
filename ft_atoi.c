@@ -6,7 +6,7 @@
 /*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 11:20:45 by ehouot            #+#    #+#             */
-/*   Updated: 2023/07/10 14:38:30 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/03 17:22:43 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_atoi(const char *str)
 {
-	int		i;
-	long	nb;
+	unsigned int	i;
+	unsigned int	nb;
 
 	nb = 0;
 	i = 0;
@@ -27,15 +27,16 @@ int	ft_atoi(const char *str)
 	{
 		if ((str[i + 1] == '\0'))
 			return (-1);
+		i++;
 	}
 	while (str[i])
 	{
 		if (ft_isdigit(str[i]) == 0)
 			return (-1);
 		nb = nb * 10 + (str[i] - 48);
-		if (nb > 2147483647)
-			return (-1);
 		i++;
 	}
-	return (nb);
+	if (nb > 2147483647)
+		return (-1);
+	return ((int)nb);
 }

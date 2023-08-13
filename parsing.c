@@ -3,43 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
+/*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 10:07:18 by ehouot            #+#    #+#             */
-/*   Updated: 2023/07/25 14:33:19 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/08 00:39:06 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	parsing(int argc, char **argv, t_var *vars)
+static void fill_vars(int argc, char **argv, t_var *vars)
 {
-	int		i;
-	int		j;
-	int		*tmp;
+	vars->eaters_count = -1;
+	vars->begin_time = realtime();
+	vars->nb_philo = ft_atoi(argv[1]);
+	vars->die_time = ft_atoi(argv[2]);
+	vars->eat_time = ft_atoi(argv[3]);
+	vars->sleep_time = ft_atoi(argv[4]);
+	if (argc == 6)
+	{
+		vars->eaters_count = 0;
+		vars->nb_x_eat = ft_atoi(argv[5]);
+	}
+}
+
+static int	check_args(int argc, char **argv)
+{
+	int	i;
 
 	i = 0;
-	j = -1;
-	vars->eat_count = -1;
-	tmp = malloc (sizeof(int) * argc - 1);
-	if (!tmp)
-		return (write(2, "Allocation problem", 19));
 	if (argc != 5 && argc != 6)
-		return (write(2, "Wrong nb of args", 17));
-	while (argv[++i])
+		return (write(2, "Wrong nb of args\n", 19));
+	while (++i < argc)
 	{
-		tmp[++j] = ft_atoi(argv[i]);
-		if (tmp[j] == -1)
-			return (write(2, "Argument problem", 17));
-	}
-	vars->nb_philo = tmp[0];
-	vars->die_time = tmp[1];
-	vars->eat_time = tmp[2];
-	vars->sleep_time = tmp[3];
-	if (tmp[4])
-	{
-		vars->eat_count = 0;
-		vars->nb_x_eat = tmp[4];
+		if (ft_atoi(argv[i]) == -1)
+			return (write(2, "Argument problem\n", 19));
 	}
 	return (0);
+}
+
+t_var	*parsing(int argc, char **argv)
+{
+	t_var	*vars;
+
+	if (check_args(argc, argv) != 0)
+		return (NULL);
+	vars = malloc (sizeof(t_var));
+	if (!vars)
+		return (NULL);
+	fill_vars(argc, argv, vars);
+	if (init_mutex(vars) != 0)
+		return (NULL);
+	return (vars);
 }

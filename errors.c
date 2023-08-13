@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/10 10:05:25 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/08 00:35:26 by ehouot           ###   ########.fr       */
+/*   Created: 2023/08/04 13:21:30 by ehouot            #+#    #+#             */
+/*   Updated: 2023/08/04 13:51:43 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+void    errors(t_var *vars)
 {
-	t_var	*vars;
-
-	vars = NULL;
-	vars = parsing(argc, argv);
-	if (!vars)
-		return (EXIT_FAILURE);
-	if (init_philo(vars) != true)
-		return (EXIT_FAILURE);
-	// philo = (t_philo **) malloc (sizeof(t_philo *) * vars.nb_philo);
-	// initialize(vars, philo);
-	return (EXIT_SUCCESS);
+    // close les mutex et les tableaux avec philo
 }

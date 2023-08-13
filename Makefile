@@ -2,8 +2,12 @@ SRC 		= 	./main.c \
 				./parsing.c \
 				./ft_atoi.c \
 				./ft_isdigit.c \
-				./initialize.c \
 				./execution.c \
+				./init_philo.c \
+				./init_mutex.c \
+				./time.c \
+				# ./initialize.c \
+				./watcher.c \
 
 OBJ		= ${SRC:.c=.o}
 

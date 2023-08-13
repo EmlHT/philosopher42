@@ -3,31 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
+/*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 16:48:10 by ehouot            #+#    #+#             */
-/*   Updated: 2023/07/25 13:36:51 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/06 15:55:32 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	initialize(t_var *vars, t_philo **philo)
+void	initialize(t_var *vars, t_philo *philo)
 {
 	int	i;
 
-	vars->forks = (pthread_mutex_t *) malloc \
-				(sizeof(pthread_mutex_t) * vars->nb_philo + 1);
+	vars->forks = (pthread_mutex_t *) malloc (sizeof(pthread_mutex_t) * vars->nb_philo);
 	if (!vars->forks)
 		return ;
 	vars->philosophers = (pthread_t *) malloc \
-				(sizeof(pthread_t) * vars->nb_philo + 1);
+				(sizeof(pthread_t) * vars->nb_philo);
 	if (!vars->philosophers)
 		return ;
 	i = -1;
 	while (++i < vars->nb_philo)
 	{
-		philo[i] = (t_philo *) malloc (sizeof(t_philo) * vars->nb_philo + 1);
+		philo[i] = (t_philo *) malloc (sizeof(t_philo) * vars->nb_philo);
 		if (!philo[i])
 			return ;
 		philo[i]->vars = vars;

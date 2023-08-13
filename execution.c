@@ -3,65 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
+/*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 16:48:23 by ehouot            #+#    #+#             */
-/*   Updated: 2023/07/25 14:51:43 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/08 00:53:22 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long get_time(void)
+static void print_action(t_philo *philo, char *action, int id)
 {
-	struct timeval time;
-	long long actual_time;
+	long long time;
+	
+	pthread_mutex_lock(&philo->vars->print);
+	time = get_time() - philo->vars->begin_time;
+	if (strncmp(action, "think", 6) == 0)
+		printf("%lld : %d is thinking\n", time, id);
+	else if (strncmp(action, "fork", 5) == 0)
+		printf("%lld : %d has taken a fork\n", time, id);
+	else if (strncmp(action, "eat", 4) == 0)
+		printf("%lld : %d is eating\n", time, id);
+	else if (strncmp(action, "sleep", 6) == 0)
+		printf("%lld : %d is sleeping\n", time, id);
+	else if (strncmp(action, "die", 4) == 0)
+		printf("%lld : %d died\n", time, id);
+	pthread_mutex_unlock(&philo->vars->print);
+}
 
-	gettimeofday(&time, NULL);
-	actual_time = (long long)time.tv_sec * 1000LL + (long long)time.tv_usec / 1000LL;
-	return (actual_time);
+static void	eat(t_philo *philo, int left_fork, int right_fork)
+{
+	if (philo->vars->nb_x_eat == philo->eat_count)
+	{
+		pthread_mutex_lock(&philo->vars->add_count);
+		philo->vars->eaters_count++;
+		pthread_mutex_unlock(&philo->vars->add_count);
+	}
+	pthread_mutex_lock(&philo->vars->forks[left_fork]);
+	print_action(philo, "fork", philo->philo_id);
+	pthread_mutex_lock(&philo->vars->forks[right_fork]);
+	print_action(philo, "fork", philo->philo_id);
+	print_action(philo, "eat", philo->philo_id);
+	philo->eat_count++;
+	usleep(philo->vars->eat_time);
+	philo->last_meal_time = get_time();
+	pthread_mutex_unlock(&philo->vars->forks[left_fork]);
+	pthread_mutex_unlock(&philo->vars->forks[right_fork]);
 }
 
 void	*thread_exec(void *arg)
 {
-	// long long	timer;
-	// long long	current_time;
 	int 		left_fork;
     int 		right_fork;
-	int 		philo_id;
-	t_var *vars;
+	t_philo *philo;
 
-	//timer = get_time();
-	t_philo *philo = (t_philo *)arg;
-    vars = philo->vars;
-    philo_id = philo->philo_id;
-	left_fork = philo_id;
-	right_fork = (philo_id + 1) % vars->nb_philo;
+	philo = (t_philo *)arg;
+	left_fork = philo->philo_id;
+	right_fork = (philo->philo_id + 1) % philo->vars->nb_philo;
 	while (1)
 	{
-		if (vars->philo_id % 2 == 0)
-			usleep(vars->eat_time);
-		printf("%lld : philo n°%d is thinking\n", get_time() - vars->time_since, philo_id);
-		if (vars->nb_x_eat == vars->eat_count)
-			break;
-		pthread_mutex_lock(&vars->forks[left_fork]);
-		pthread_mutex_lock(&vars->forks[right_fork]);
-		printf("%lld : philo n°%d has taken a fork\n", get_time() - vars->time_since, philo_id);
-		printf("%lld : philo n°%d has taken a fork\n", get_time() - vars->time_since, philo_id);
-		printf("%lld : philo n°%d is eating\n", get_time() - vars->time_since, philo_id);
-		vars->eat_count++;
-		usleep(vars->eat_time);
-		// timer = get_time();
-		pthread_mutex_unlock(&vars->forks[left_fork]);
-		pthread_mutex_unlock(&vars->forks[right_fork]); 
-		printf("%lld : philo n°%d is sleeping\n", get_time() - vars->time_since, philo_id);
-		usleep(vars->sleep_time);
-		// current_time = get_time();
-		// if (current_time - timer >= vars->die_time)
-		// {
-		// 	printf("%lld : philo n°%d died\n", get_time() - vars->time_since, philo_id);
-		// 	return (NULL);
-		// } WATCHER DANS LE MAIN
+		if (philo->philo_id % 2 == 0)
+			usleep(philo->vars->eat_time);
+		print_action(philo, "think", philo->philo_id);
+		eat(philo, left_fork, right_fork);
+		print_action(philo, "sleep", philo->philo_id);
+		usleep(philo->vars->sleep_time);
 	}
 	return (NULL);
 }
