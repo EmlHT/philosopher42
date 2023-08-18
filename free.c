@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/03 18:42:06 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/18 17:24:44 by ehouot           ###   ########.fr       */
+/*   Created: 2023/08/17 14:55:28 by ehouot            #+#    #+#             */
+/*   Updated: 2023/08/17 16:18:25 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long get_time()
+void    ft_free(t_var *vars)
 {
-	struct timeval	time;
-	long long 		actual_time;
+    int i;
 
-	gettimeofday(&time, NULL);
-	actual_time = (long long)time.tv_sec * 1000LL + (long long)time.tv_usec / 1000LL;
-	return (actual_time);
-}
-
-int	ft_usleep(long long time)
-{
-	long long	start;
-
-	start = get_time();
-	while ((get_time() - start) < time)
-		usleep(time * 1000 / 10);
-	return (0);
+    i = -1;
+    while (++i < vars->nb_philo)
+    {
+        pthread_mutex_destroy(&vars->forks[i]);
+        free(&vars->philo[i]);
+    }
+    free(&vars->philo);
+    pthread_mutex_destroy(&vars->print);
+    pthread_mutex_destroy(&vars->add_count);
 }

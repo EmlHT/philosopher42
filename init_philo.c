@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:39:25 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/08 01:04:56 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/18 17:23:13 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ bool init_philo(t_var *vars)
 		if (pthread_create(&vars->philo[i].philosopher, NULL, thread_exec, &vars->philo[i]) != 0)
 			return (false);
 	}
+	watcher(vars);
     i = -1;
-	while (++i < vars->nb_philo)
-        pthread_join(vars->philo[i].philosopher, NULL);
     return (true);
 }

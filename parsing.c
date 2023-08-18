@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 10:07:18 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/08 00:39:06 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/18 17:24:38 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void fill_vars(int argc, char **argv, t_var *vars)
 {
 	vars->eaters_count = -1;
-	vars->begin_time = realtime();
+	vars->begin_time = get_time();
 	vars->nb_philo = ft_atoi(argv[1]);
 	vars->die_time = ft_atoi(argv[2]);
 	vars->eat_time = ft_atoi(argv[3]);

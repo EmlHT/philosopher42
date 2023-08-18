@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mutex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 12:23:36 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/08 00:54:04 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/18 16:49:45 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static bool    init_forks(t_var *vars)
 
 int init_mutex(t_var *vars)
 {
-    if (pthread_mutex_init(&vars->start, NULL))
+    if (pthread_mutex_init(&vars->check_meals, NULL))
         return (-1);
     if (pthread_mutex_init(&vars->print, NULL))
         return (-1);

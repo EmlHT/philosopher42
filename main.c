@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 10:05:25 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/08 00:35:26 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/18 12:05:06 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ int	main(int argc, char **argv)
 	vars = NULL;
 	vars = parsing(argc, argv);
 	if (!vars)
-		return (EXIT_FAILURE);
+		return (-1);
 	if (init_philo(vars) != true)
-		return (EXIT_FAILURE);
-	// philo = (t_philo **) malloc (sizeof(t_philo *) * vars.nb_philo);
-	// initialize(vars, philo);
-	return (EXIT_SUCCESS);
+		return (-1);
+	return (0);
 }

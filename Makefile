@@ -6,14 +6,16 @@ SRC 		= 	./main.c \
 				./init_philo.c \
 				./init_mutex.c \
 				./time.c \
-				# ./initialize.c \
 				./watcher.c \
+				./ft_strncmp.c \
+				free.c \
+				# ./initialize.c \
 
 OBJ		= ${SRC:.c=.o}
 
 HEADER		= ./
 
-CC 			= gcc
+CC 			= clang
 
 RM 			= rm -f
 
