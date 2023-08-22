@@ -6,13 +6,11 @@
 /*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 16:48:23 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/18 17:17:42 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/22 12:42:13 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-
 
 void print_action(t_philo *philo, char *action, int id)
 {
@@ -36,7 +34,7 @@ void print_action(t_philo *philo, char *action, int id)
 	pthread_mutex_unlock(&philo->vars->print);
 }
 
-static void	eat(t_philo *philo, int left_fork, int right_fork)
+static void	increment_eater(t_philo *philo)
 {
 	if (philo->vars->nb_x_eat == philo->eat_count)
 	{
@@ -44,6 +42,11 @@ static void	eat(t_philo *philo, int left_fork, int right_fork)
 		philo->vars->eaters_count++;
 		pthread_mutex_unlock(&philo->vars->add_count);
 	}
+}
+
+static void	eat(t_philo *philo, int left_fork, int right_fork)
+{
+	increment_eater(philo);
 	if (philo->philo_id == philo->vars->nb_philo - 1) 
 	{
     	pthread_mutex_lock(&philo->vars->forks[right_fork]);
@@ -58,10 +61,6 @@ static void	eat(t_philo *philo, int left_fork, int right_fork)
     	pthread_mutex_lock(&philo->vars->forks[right_fork]);
     	print_action(philo, "fork", philo->philo_id);
 	}
-	// pthread_mutex_lock(&philo->vars->forks[left_fork]);
-	// print_action(philo, "fork", philo->philo_id);
-	// pthread_mutex_lock(&philo->vars->forks[right_fork]);
-	// print_action(philo, "fork", philo->philo_id);
 	print_action(philo, "eat", philo->philo_id);
 	philo->eat_count++;
 	ft_usleep(philo->vars->eat_time);

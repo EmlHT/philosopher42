@@ -8,8 +8,7 @@ SRC 		= 	./main.c \
 				./time.c \
 				./watcher.c \
 				./ft_strncmp.c \
-				free.c \
-				# ./initialize.c \
+				./ft_free.c \
 
 OBJ		= ${SRC:.c=.o}
 

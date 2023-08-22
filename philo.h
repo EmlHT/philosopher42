@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 10:07:38 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/08 00:51:56 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/18 17:24:55 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_var
 	int				nb_x_eat;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
-	pthread_mutex_t	start;
+	pthread_mutex_t	check_meals;
 	pthread_mutex_t	add_count;
 	long long 		begin_time;
 	pthread_t		watcher;
@@ -58,11 +58,14 @@ int		ft_atoi(const char *str);
 /* -- PHILO -- */
 
 t_var		*parsing(int argc, char **argv);
-long long	realtime();
 long long	get_time();
 int			init_mutex(t_var *vars);
 bool		init_philo(t_var *vars);
 void		*thread_exec(void *vars);
-void    	*watcher(void *arg);
+bool    	watcher(t_var *vars);
+int			ft_usleep(long long time);
+void		print_action(t_philo *philo, char *action, int id);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+void	    ft_free(t_var *vars);
 
 #endif

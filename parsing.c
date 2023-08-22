@@ -6,7 +6,7 @@
 /*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 10:07:18 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/18 17:24:38 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/22 16:10:22 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ static int	check_args(int argc, char **argv)
 
 	i = 0;
 	if (argc != 5 && argc != 6)
-		return (write(2, "Wrong nb of args\n", 19));
+		return (write(2, "Wrong nb of args\n", 18));
 	while (++i < argc)
 	{
 		if (ft_atoi(argv[i]) == -1)
-			return (write(2, "Argument problem\n", 19));
+			return (write(2, "Argument problem\n", 18));
 	}
 	return (0);
 }
