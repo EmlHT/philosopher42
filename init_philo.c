@@ -6,7 +6,7 @@
 /*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:39:25 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/22 17:23:49 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/22 17:52:12 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	init_philo(t_var *vars)
 {
-	int i;
+	int	i;
 
 	vars->philo = malloc (sizeof(t_philo) * vars->nb_philo);
 	if (!vars->philo)

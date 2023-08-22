@@ -6,7 +6,7 @@
 /*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:05:36 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/22 17:25:08 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/22 17:52:22 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_free(t_var *vars)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < vars->nb_philo)

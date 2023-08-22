@@ -6,7 +6,7 @@
 /*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 10:07:38 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/22 17:34:49 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/22 17:53:45 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_var
 	struct s_philo	*philo;
 }				t_var;
 
-typedef	struct	s_philo
+typedef struct s_philo
 {
 	struct s_var	*vars;
 	int				philo_id;
