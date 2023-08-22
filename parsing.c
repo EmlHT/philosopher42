@@ -6,13 +6,13 @@
 /*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 10:07:18 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/22 16:10:22 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/22 16:55:50 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void fill_vars(int argc, char **argv, t_var *vars)
+static void	fill_vars(int argc, char **argv, t_var *vars)
 {
 	vars->eaters_count = -1;
 	vars->begin_time = get_time();
