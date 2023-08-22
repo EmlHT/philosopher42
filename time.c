@@ -6,19 +6,20 @@
 /*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:42:06 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/18 17:24:44 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/22 17:27:25 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long get_time()
+long long	get_time(void)
 {
 	struct timeval	time;
-	long long 		actual_time;
+	long long		actual_time;
 
 	gettimeofday(&time, NULL);
-	actual_time = (long long)time.tv_sec * 1000LL + (long long)time.tv_usec / 1000LL;
+	actual_time = (long long)time.tv_sec * 1000LL + \
+		(long long)time.tv_usec / 1000LL;
 	return (actual_time);
 }
 
