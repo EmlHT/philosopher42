@@ -6,7 +6,7 @@
 /*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:39:25 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/22 17:52:12 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/23 10:35:07 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ bool	init_philo(t_var *vars)
 	{
 		vars->philo[i].philo_id = i;
 		vars->philo[i].eat_count = 0;
+		vars->philo[i].last_meal_time = get_time();
 		vars->philo[i].vars = vars;
 		if (pthread_create(&vars->philo[i].philosopher, NULL, \
 			thread_exec, &vars->philo[i]) != 0)
 			return (false);
 	}
 	watcher(vars);
-	i = -1;
 	return (true);
 }

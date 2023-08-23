@@ -6,7 +6,7 @@
 /*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 10:07:18 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/22 16:55:50 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/23 10:21:20 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static int	check_args(int argc, char **argv)
 	i = 0;
 	if (argc != 5 && argc != 6)
 		return (write(2, "Wrong nb of args\n", 18));
+	if (*argv[1] == '0')
+		return (write(2, "0 philo is impossible\n", 23));
 	while (++i < argc)
 	{
 		if (ft_atoi(argv[i]) == -1)

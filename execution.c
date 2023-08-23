@@ -6,7 +6,7 @@
 /*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 16:48:23 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/22 17:30:28 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/23 11:43:40 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,26 +47,16 @@ static void	increment_eater(t_philo *philo)
 static void	eat(t_philo *philo, int left_fork, int right_fork)
 {
 	increment_eater(philo);
-	if (philo->philo_id == philo->vars->nb_philo - 1)
-	{
-		pthread_mutex_lock(&philo->vars->forks[right_fork]);
-		print_action(philo, "fork", philo->philo_id);
-		pthread_mutex_lock(&philo->vars->forks[left_fork]);
-		print_action(philo, "fork", philo->philo_id);
-	}
-	else
-	{
-		pthread_mutex_lock(&philo->vars->forks[left_fork]);
-		print_action(philo, "fork", philo->philo_id);
-		pthread_mutex_lock(&philo->vars->forks[right_fork]);
-		print_action(philo, "fork", philo->philo_id);
-	}
+	pthread_mutex_lock(&philo->vars->forks[right_fork]);
+	print_action(philo, "fork", philo->philo_id);
+	pthread_mutex_lock(&philo->vars->forks[left_fork]);
+	print_action(philo, "fork", philo->philo_id);
 	print_action(philo, "eat", philo->philo_id);
-	philo->eat_count++;
-	ft_usleep(philo->vars->eat_time);
 	pthread_mutex_lock(&philo->vars->check_meals);
 	philo->last_meal_time = get_time();
 	pthread_mutex_unlock(&philo->vars->check_meals);
+	philo->eat_count++;
+	ft_usleep(philo->vars->eat_time);
 	pthread_mutex_unlock(&philo->vars->forks[left_fork]);
 	pthread_mutex_unlock(&philo->vars->forks[right_fork]);
 }
@@ -80,9 +70,6 @@ void	*thread_exec(void *arg)
 	philo = (t_philo *)arg;
 	left_fork = philo->philo_id;
 	right_fork = (philo->philo_id + 1) % philo->vars->nb_philo;
-	pthread_mutex_lock(&philo->vars->check_meals);
-	philo->last_meal_time = get_time();
-	pthread_mutex_unlock(&philo->vars->check_meals);
 	if (philo->philo_id % 2 == 0)
 		ft_usleep(philo->vars->eat_time / 2);
 	while (1)

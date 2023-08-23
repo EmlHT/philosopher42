@@ -6,7 +6,7 @@
 /*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:06:28 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/22 17:07:37 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/23 10:40:07 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	watcher(t_var *vars)
 	while (vars->eaters_count != vars->nb_philo)
 	{
 		pthread_mutex_unlock(&vars->add_count);
-		if (i >= vars->nb_philo - 1)
+		if (i > vars->nb_philo - 1)
 			i = 0;
 		pthread_mutex_lock(&vars->check_meals);
 		if (get_time() - vars->philo[i].last_meal_time >= vars->die_time)

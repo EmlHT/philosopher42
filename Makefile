@@ -18,12 +18,12 @@ CC 			= clang
 
 RM 			= rm -f
 
-CFLAGS 		= -Wall -Werror -Wextra -g3
+CFLAGS 		= -Wall -Werror -Wextra
 
 LDFLAGS 	= -lpthread
 
 ifdef DEBUG
-	CFLAGS += -fsanitize=address -g3
+	CFLAGS += -fsanitize=address
 endif
 
 NAME 		= philo
