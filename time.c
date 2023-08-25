@@ -6,7 +6,7 @@
 /*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:42:06 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/23 10:12:16 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/25 10:12:41 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int	ft_usleep(long long time)
 
 	start = get_time();
 	while ((get_time() - start) < time)
-		usleep(time * 1000 / 10);
+		usleep(1000);
 	return (0);
 }

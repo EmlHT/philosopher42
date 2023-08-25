@@ -6,7 +6,7 @@
 /*   By: ehouot < ehouot@student.42nice.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 16:48:23 by ehouot            #+#    #+#             */
-/*   Updated: 2023/08/23 11:43:40 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/08/25 10:09:41 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ void	*thread_exec(void *arg)
 	left_fork = philo->philo_id;
 	right_fork = (philo->philo_id + 1) % philo->vars->nb_philo;
 	if (philo->philo_id % 2 == 0)
+	{
 		ft_usleep(philo->vars->eat_time / 2);
+		print_action(philo, "think", philo->philo_id);
+	}
 	while (1)
 	{
 		eat(philo, left_fork, right_fork);
